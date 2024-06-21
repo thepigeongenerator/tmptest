@@ -1,0 +1,23 @@
+name: check_push
+on:
+  push:
+    branches: [main]
+
+jobs:
+  validate-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: setup dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: latest
+
+      # compile and verify the project
+      - name: restore dependencies
+        run: dotnet restore
+      - name: build with warnings raised to errors
+        run: dotnet build --configuration Release --no-restore True -warnaserror
+      - name: test the build
+        run: dotnet test --no-build True --verbosity normal
