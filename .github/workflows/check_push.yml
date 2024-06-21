@@ -12,7 +12,7 @@ jobs:
       - name: setup dotnet
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: latest
+          dotnet-version: 8.0
 
       # compile and verify the project
       - name: restore dependencies
